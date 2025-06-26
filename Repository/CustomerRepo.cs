@@ -2,7 +2,7 @@
 using Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
+using System.Data;
 using System.Linq;
 using System.Text;
 
@@ -13,9 +13,13 @@ namespace Repository
     {
         DatabaseConnectionClass dcc;
 
-        public CustomerRepo()
+        public CustomerRepo() : this(new DatabaseConnectionClass())
         {
-            dcc = new DatabaseConnectionClass();
+        }
+
+        public CustomerRepo(DatabaseConnectionClass connection)
+        {
+            dcc = connection;
         }
 
         public bool InsertCustomer(Customer cust)
@@ -65,7 +69,7 @@ namespace Repository
             Customer cust = null;
             string query = "SELECT * from Customers WHERE custId = '" + custId + "'";
             dcc.ConnectWithDB();
-            SqlDataReader sdr = dcc.GetData(query);
+            IDataReader sdr = dcc.GetData(query);
 
             while (sdr.Read())
             {
@@ -84,7 +88,7 @@ namespace Repository
             List<Customer> listOfCustomer = new List<Customer>();
             string query = "SELECT * FROM Customers";
             dcc.ConnectWithDB();
-            SqlDataReader sdr = dcc.GetData(query);
+            IDataReader sdr = dcc.GetData(query);
 
             while (sdr.Read())
             {
