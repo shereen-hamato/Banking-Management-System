@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -17,23 +18,23 @@ namespace Repository
             myConnection = new SqlConnection(connectionString);
         }
 
-        public void ConnectWithDB()
+        public virtual void ConnectWithDB()
         {
             myConnection.Open();
         }
-        public void CloseConnection()
+        public virtual void CloseConnection()
         {
             myConnection.Close();
         }
 
-        public SqlDataReader GetData(string query)
+        public virtual IDataReader GetData(string query)
         {
             myCommand = new SqlCommand(query, myConnection);
             //SqlDataReader sdr = myCommand.ExecuteReader();
             //return sdr;
             return myCommand.ExecuteReader();
         }
-        public int ExecuteSQL(string query)
+        public virtual int ExecuteSQL(string query)
         {
             myCommand = new SqlCommand(query, myConnection);
             //int x= myCommand.ExecuteNonQuery();

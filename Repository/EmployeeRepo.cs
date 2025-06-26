@@ -2,6 +2,7 @@
 using Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -67,7 +68,7 @@ namespace Repository
             Employee emp = null;
             string query = "SELECT * from Employees WHERE empId = '" + empId + "'";
             dcc.ConnectWithDB();
-            SqlDataReader sdr =  dcc.GetData(query);
+            IDataReader sdr =  dcc.GetData(query);
 
             while (sdr.Read())
             {
@@ -87,7 +88,7 @@ namespace Repository
             List<Employee> listOfEmployee = new List<Employee>();
             string query = "SELECT * FROM Employees";
             dcc.ConnectWithDB();
-            SqlDataReader sdr = dcc.GetData(query);
+            IDataReader sdr = dcc.GetData(query);
 
             while (sdr.Read())
             {
